@@ -1,0 +1,25 @@
+name = "milliconfig-wizard"
+main = "proxy.js"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# پوشهٔ dist خروجی build ویت است (npm run build) و به‌عنوان استاتیک سرو می‌شود.
+# مسیر /__cf/* توسط proxy.js قبل از رسیدن به assets گرفته و پراکسی می‌شود.
+[assets]
+directory = "dist"
+not_found_handling = "single-page-application"
+
+[observability]
+enabled = true
+
+# دیتابیس ادمین خودِ ویزارد (جدا از D1 هر پنلی که کاربران دیپلوی می‌کنند).
+# هر بار کسی با موفقیت یک پنل دیپلوی می‌کند، یک ردیف اینجا لاگ می‌شود تا در
+# داشبورد مدیریت (/#admin) قابل مشاهده باشد.
+#
+# ساخت دیتابیس (یک‌بار، قبل از اولین دیپلوی):
+#   npx wrangler d1 create wizard-admin-db
+# سپس database_id زیر را با مقدار خروجی آن دستور جایگزین کنید.
+[[d1_databases]]
+binding = "WIZARD_DB"
+database_name = "wizard-admin-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
